@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Abstract artwork: concentric circles on paper">
+  <rect width="1200" height="1200" fill="#f4f0e8"/>
+  <circle cx="600" cy="600" r="430" fill="none" stroke="#b8afa0" stroke-width="2"/>
+  <circle cx="600" cy="600" r="330" fill="none" stroke="#c8bfae" stroke-width="2"/>
+  <circle cx="600" cy="600" r="230" fill="none" stroke="#dad3c6" stroke-width="2"/>
+  <circle cx="600" cy="600" r="130" fill="#191713" opacity="0.08"/>
+  <circle cx="600" cy="600" r="52" fill="#8b5a3c" opacity="0.7"/>
+  <rect x="0" y="598" width="1200" height="4" fill="#191713" opacity="0.12"/>
+</svg>

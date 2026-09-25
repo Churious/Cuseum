@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Abstract artwork: an arched doorway in dim light">
+  <rect width="1200" height="900" fill="#e3dccd"/>
+  <rect x="0" y="0" width="1200" height="900" fill="#191713" opacity="0.05"/>
+  <path d="M420 780V420a180 180 0 0 1 360 0v360z" fill="#191713" opacity="0.72"/>
+  <path d="M470 780V430a130 130 0 0 1 260 0v350z" fill="#f4f0e8" opacity="0.9"/>
+  <path d="M520 780V446a80 80 0 0 1 160 0v334z" fill="#8b5a3c" opacity="0.45"/>
+  <rect x="120" y="780" width="960" height="4" fill="#191713" opacity="0.25"/>
+  <circle cx="880" cy="200" r="46" fill="#f4f0e8" opacity="0.65"/>
+</svg>

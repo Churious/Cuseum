@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Abstract artwork: six soft horizontal bands">
+  <rect width="1200" height="1200" fill="#ebe4d8"/>
+  <rect y="150" width="1200" height="90" fill="#d9d2c4"/>
+  <rect y="300" width="1200" height="130" fill="#c8bfae"/>
+  <rect y="490" width="1200" height="60" fill="#8b5a3c" opacity="0.55"/>
+  <rect y="620" width="1200" height="110" fill="#b9b0a0"/>
+  <rect y="800" width="1200" height="150" fill="#dad3c6"/>
+  <rect y="1010" width="1200" height="70" fill="#191713" opacity="0.18"/>
+</svg>

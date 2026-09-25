@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Abstract artwork: a grid of small catalogue squares">
+  <rect width="1200" height="900" fill="#f4f0e8"/>
+  <g fill="#191713" opacity="0.12">
+    <rect x="90" y="120" width="90" height="90"/><rect x="210" y="120" width="90" height="90"/>
+    <rect x="330" y="120" width="90" height="90"/><rect x="450" y="120" width="90" height="90"/>
+    <rect x="90" y="240" width="90" height="90"/><rect x="210" y="240" width="90" height="90"/>
+    <rect x="330" y="240" width="90" height="90"/>
+  </g>
+  <g fill="#191713" opacity="0.28">
+    <rect x="570" y="120" width="90" height="90"/><rect x="690" y="120" width="90" height="90"/>
+    <rect x="810" y="120" width="90" height="90"/><rect x="930" y="120" width="90" height="90"/>
+    <rect x="1050" y="120" width="90" height="90"/>
+  </g>
+  <g fill="#8b5a3c" opacity="0.5">
+    <rect x="90" y="380" width="90" height="90"/><rect x="450" y="380" width="90" height="90"/>
+    <rect x="810" y="380" width="90" height="90"/>
+  </g>
+  <g fill="#191713" opacity="0.16">
+    <rect x="210" y="380" width="90" height="90"/><rect x="330" y="380" width="90" height="90"/>
+    <rect x="570" y="380" width="90" height="90"/><rect x="690" y="380" width="90" height="90"/>
+    <rect x="930" y="380" width="90" height="90"/><rect x="1050" y="380" width="90" height="90"/>
+    <rect x="90" y="520" width="90" height="90"/><rect x="210" y="520" width="90" height="90"/>
+    <rect x="330" y="520" width="90" height="90"/><rect x="450" y="520" width="90" height="90"/>
+    <rect x="570" y="520" width="90" height="90"/><rect x="690" y="520" width="90" height="90"/>
+    <rect x="810" y="520" width="90" height="90"/><rect x="930" y="520" width="90" height="90"/>
+    <rect x="1050" y="520" width="90" height="90"/>
+  </g>
+  <rect x="90" y="690" width="1020" height="2" fill="#b8afa0"/>
+  <rect x="90" y="720" width="640" height="2" fill="#dad3c6"/>
+  <rect x="90" y="748" width="420" height="2" fill="#dad3c6"/>
+</svg>

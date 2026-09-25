@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Abstract artwork: a square-format street photograph">
+  <rect width="1200" height="1200" fill="#d9d2c4"/>
+  <rect x="0" y="700" width="1200" height="500" fill="#8a8577" opacity="0.55"/>
+  <rect x="120" y="180" width="360" height="520" fill="#191713" opacity="0.18"/>
+  <rect x="560" y="260" width="300" height="440" fill="#191713" opacity="0.26"/>
+  <rect x="900" y="140" width="200" height="560" fill="#191713" opacity="0.14"/>
+  <rect x="600" y="640" width="60" height="400" fill="#191713" opacity="0.72"/>
+  <circle cx="630" cy="600" r="52" fill="#191713" opacity="0.72"/>
+  <rect x="380" y="828" width="240" height="34" fill="#191713" opacity="0.35"/>
+  <rect x="0" y="1080" width="1200" height="120" fill="#191713" opacity="0.1"/>
+</svg>

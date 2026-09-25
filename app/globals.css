@@ -1,0 +1,249 @@
+/* Cuseum — a quiet, modern museum. Warm paper, near-black ink, hairlines. */
+@import "tailwindcss";
+
+/*
+ * Cuseum design tokens.
+ * A quiet, modern museum: warm paper, near-black ink, hairlines.
+ * No gradients, no glass, no drop-shadow piles.
+ */
+@theme {
+  --color-paper: #f4f0e8;
+  --color-paper-deep: #ebe4d8;
+  --color-paper-raised: #fbf9f5;
+
+  --color-ink: #191713;
+  --color-ink-soft: #45403a;
+  --color-ink-muted: #867e70;
+
+  --color-line: #dad3c6;
+  --color-line-strong: #b8afa0;
+
+  --color-clay: #8b5a3c;
+
+  /*
+   * Latin is served by Cormorant Garamond / Inter; the Korean faces sit right
+   * behind them, so Hangul falls through per glyph instead of being rendered
+   * with a Latin face. English text is untouched by the fallback chain.
+   */
+  --font-display: var(--font-cormorant), var(--font-noto-serif-kr), "Iowan Old Style",
+    "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: var(--font-inter), var(--font-noto-sans-kr), ui-sans-serif, system-ui,
+    -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-mount: 0 26px 54px -36px rgba(25, 23, 19, 0.45);
+  --shadow-sheet: 0 12px 32px -24px rgba(25, 23, 19, 0.4);
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.005em;
+  }
+
+  ::selection {
+    background: #e4dac8;
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  input,
+  textarea,
+  select,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+@layer components {
+  /* Small uppercase information text used for labels and captions. */
+  .label-caps {
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  /* Text link that behaves like a museum wayfinding sign. */
+  .link-quiet {
+    border-bottom: 1px solid transparent;
+    padding-bottom: 1px;
+    transition: color 220ms ease, border-color 220ms ease;
+  }
+
+  .link-quiet:hover {
+    border-color: var(--color-line-strong);
+    color: var(--color-ink);
+  }
+
+  /* Primary action: a solid ink plate. Used sparingly. */
+  .btn-ink {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+    padding: 0.85rem 1.7rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: background-color 260ms ease, opacity 260ms ease;
+  }
+
+  .btn-ink:hover {
+    background-color: var(--color-ink-soft);
+  }
+
+  .btn-ink:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* Secondary action: hairline outline. */
+  .btn-line {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border: 1px solid var(--color-line-strong);
+    color: var(--color-ink);
+    padding: 0.8rem 1.5rem;
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: border-color 260ms ease, background-color 260ms ease;
+  }
+
+  .btn-line:hover {
+    border-color: var(--color-ink);
+    background-color: rgba(251, 249, 245, 0.7);
+  }
+
+  /* Field: a single hairline underline. No boxes. */
+  .field {
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.55rem 0;
+    color: var(--color-ink);
+    transition: border-color 240ms ease;
+  }
+
+  .field::placeholder {
+    color: color-mix(in srgb, var(--color-ink-muted) 75%, transparent);
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-ink);
+  }
+
+  .field:focus-visible {
+    outline: none;
+  }
+}
+
+@keyframes cuseum-enter {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes cuseum-breathe {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: cuseum-enter 480ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.breathe-in {
+  animation: cuseum-breathe 700ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-enter,
+  .breathe-in {
+    animation: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/*
+ * Korean typography.
+ *
+ * Hangul arrives through the per-glyph fallback in --font-display / --font-sans,
+ * so the English design is unchanged. Three things do not carry over from a
+ * Latin layout and are corrected here:
+ *
+ *   1. Tracked small caps read as broken syllables with 0.18em tracking, and
+ *      Hangul needs a slightly larger size than 10px to stay legible.
+ *   2. Display headings need a little more leading once Korean text wraps.
+ *   3. Korean has no italic forms, so synthetic obliques are suppressed.
+ *
+ * These rules are deliberately unlayered: unlayered CSS outranks Tailwind's
+ * utility layer, so the adjustments win without touching any component.
+ */
+html[lang="ko"] .label-caps {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+html[lang="ko"] h1,
+html[lang="ko"] h2,
+html[lang="ko"] h3 {
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+html[lang="ko"] .italic,
+html[lang="ko"] em,
+html[lang="ko"] i {
+  font-style: normal;
+}

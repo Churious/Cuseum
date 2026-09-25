@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-label="Abstract artwork: a pocket calculator standing upright">
+  <rect width="1200" height="1200" fill="#f4f0e8"/>
+  <rect x="360" y="180" width="480" height="900" rx="24" fill="#191713" opacity="0.9"/>
+  <rect x="400" y="236" width="400" height="150" rx="8" fill="#dad3c6"/>
+  <g fill="#dad3c6">
+    <rect x="400" y="430" width="100" height="100" rx="8"/><rect x="550" y="430" width="100" height="100" rx="8"/>
+    <rect x="700" y="430" width="100" height="100" rx="8"/>
+    <rect x="400" y="570" width="100" height="100" rx="8"/><rect x="550" y="570" width="100" height="100" rx="8"/>
+    <rect x="700" y="570" width="100" height="100" rx="8"/>
+    <rect x="400" y="710" width="100" height="100" rx="8"/><rect x="550" y="710" width="100" height="100" rx="8"/>
+    <rect x="700" y="710" width="100" height="100" rx="8"/>
+    <rect x="400" y="850" width="250" height="100" rx="8"/><rect x="700" y="850" width="100" height="100" rx="8"/>
+  </g>
+  <rect x="550" y="430" width="100" height="100" rx="8" fill="#8b5a3c" opacity="0.75"/>
+  <rect x="700" y="850" width="100" height="100" rx="8" fill="#c2703f" opacity="0.7"/>
+  <ellipse cx="600" cy="1120" rx="260" ry="20" fill="#191713" opacity="0.12"/>
+</svg>

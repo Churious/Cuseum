@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Abstract artwork: a seascape divided by a horizon line">
+  <rect width="1200" height="466" fill="#e6e1d5"/>
+  <rect y="466" width="1200" height="434" fill="#9d968a" opacity="0.85"/>
+  <rect y="464" width="1200" height="3" fill="#191713" opacity="0.55"/>
+  <rect y="300" width="1200" height="1" fill="#b8afa0"/>
+  <rect y="700" width="1200" height="1" fill="#191713" opacity="0.12"/>
+  <circle cx="220" cy="180" r="34" fill="#f4f0e8" opacity="0.7"/>
+</svg>
