@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { MuseumNotice } from "@/components/site/Notices";
@@ -48,12 +47,7 @@ export function TakeMeSomewhere() {
   if (exhibits.length === 0) {
     return (
       <div className="max-w-[46ch]">
-        <Link href="/new" className="btn-ink">
-          {t.lobby.firstExhibit}
-        </Link>
-        <p className="mt-6 text-sm leading-relaxed italic text-ink-soft">
-          {t.lobby.emptyMuseum}
-        </p>
+        <p className="text-sm leading-relaxed italic text-ink-soft">{t.lobby.emptyMuseum}</p>
       </div>
     );
   }

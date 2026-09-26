@@ -92,9 +92,6 @@ export function ExhibitDetail({ id }: { id: string }) {
                 <span aria-hidden>↗</span>
               </a>
             ) : null}
-            <Link href={`/exhibit/${exhibit.id}/edit`} className="label-caps link-quiet">
-              {t.exhibit.edit}
-            </Link>
           </div>
 
           {error ? (

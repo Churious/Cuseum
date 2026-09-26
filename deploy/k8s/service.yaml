@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cuseum
+  namespace: cuseum
+  labels:
+    app: cuseum
+spec:
+  type: ClusterIP
+  selector:
+    app: cuseum
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http

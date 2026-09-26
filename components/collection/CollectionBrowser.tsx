@@ -25,7 +25,19 @@ interface FilterOption<T extends string> {
  * than looking. It keeps the same type, the same hairlines, and stays out of
  * the way of the lobby.
  */
-export function CollectionBrowser({ initialRoom }: { initialRoom?: RoomId }) {
+export function CollectionBrowser({
+  initialRoom,
+  manageable = false,
+  addHref = "/admin/exhibits/new",
+  editHrefPrefix = "/admin/exhibits",
+  embedded = false,
+}: {
+  initialRoom?: RoomId;
+  manageable?: boolean;
+  addHref?: string;
+  editHrefPrefix?: string;
+  embedded?: boolean;
+}) {
   const { exhibits, ready } = useMuseum();
   const { t, locale } = useLocale();
   const [query, setQuery] = useState("");
@@ -100,18 +112,20 @@ export function CollectionBrowser({ initialRoom }: { initialRoom?: RoomId }) {
   }
 
   return (
-    <div className="pt-16 md:pt-24">
-      <header>
-        <p className="label-caps">{t.collection.eyebrow}</p>
-        <h1 className="mt-6 font-display text-[2.6rem] leading-[1.05] text-ink md:text-[3.6rem]">
-          {t.collection.title}
-        </h1>
-        <p className="mt-6 max-w-[52ch] text-sm leading-relaxed text-ink-soft">
-          {t.collection.intro}
-        </p>
-      </header>
+    <div className={embedded ? "" : "pt-16 md:pt-24"}>
+      {!embedded ? (
+        <header>
+          <p className="label-caps">{t.collection.eyebrow}</p>
+          <h1 className="mt-6 font-display text-[2.6rem] leading-[1.05] text-ink md:text-[3.6rem]">
+            {t.collection.title}
+          </h1>
+          <p className="mt-6 max-w-[52ch] text-sm leading-relaxed text-ink-soft">
+            {t.collection.intro}
+          </p>
+        </header>
+      ) : null}
 
-      <div className="mt-14 space-y-6 border-t border-line pt-8">
+      <div className={`space-y-6 border-t border-line pt-8 ${embedded ? "" : "mt-14"}`}>
         <div className="grid gap-3 md:grid-cols-[4.5rem_minmax(0,1fr)] md:gap-6">
           <label htmlFor="collection-search" className="label-caps md:pt-1">
             {t.collection.searchLabel}
@@ -173,21 +187,26 @@ export function CollectionBrowser({ initialRoom }: { initialRoom?: RoomId }) {
               : t.collection.emptyFilterLine
           }
           action={
-            exhibits.length === 0 ? (
-              <Link href="/new" className="btn-ink">
+            exhibits.length === 0 && manageable ? (
+              <Link href={addHref} className="btn-ink">
                 {t.collection.addToMuseum}
               </Link>
-            ) : (
+            ) : exhibits.length > 0 ? (
               <button type="button" onClick={clearFilters} className="btn-line">
                 {t.collection.clear}
               </button>
-            )
+            ) : undefined
           }
         />
       ) : (
         <ul>
           {results.map((exhibit) => (
-            <CollectionRow key={exhibit.id} exhibit={exhibit} />
+            <CollectionRow
+              key={exhibit.id}
+              exhibit={exhibit}
+              manageable={manageable}
+              editHref={`${editHrefPrefix}/${exhibit.id}/edit`}
+            />
           ))}
         </ul>
       )}

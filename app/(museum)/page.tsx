@@ -6,7 +6,6 @@ import {
   RoomsHeading,
 } from "@/components/lobby/LobbyText";
 import { RoomIndex } from "@/components/lobby/RoomIndex";
-import { SampleDataControls } from "@/components/lobby/SampleDataControls";
 import { TakeMeSomewhere } from "@/components/lobby/TakeMeSomewhere";
 import { getServerTranslations } from "@/lib/i18n/server";
 
@@ -35,9 +34,6 @@ export default function LobbyPage() {
         </div>
       </section>
 
-      <section className="mt-24 md:mt-32">
-        <SampleDataControls />
-      </section>
     </>
   );
 }

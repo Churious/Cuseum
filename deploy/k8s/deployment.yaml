@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cuseum
+  namespace: cuseum
+  labels:
+    app: cuseum
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: cuseum
+  template:
+    metadata:
+      labels:
+        app: cuseum
+    spec:
+      containers:
+        - name: cuseum
+          image: docker.io/library/cuseum:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: DATABASE_PATH
+              value: /app/data/cuseum.db
+            - name: AUTH_METHODS
+              value: passkey,password
+            - name: BETTER_AUTH_URL
+              value: https://cuseum.swanno3o.com
+            - name: PASSKEY_RP_ID
+              value: swanno3o.com
+            - name: PASSKEY_ORIGIN
+              value: https://cuseum.swanno3o.com
+            - name: BETTER_AUTH_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cuseum-env
+                  key: BETTER_AUTH_SECRET
+            - name: CURATOR_SETUP_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: cuseum-env
+                  key: CURATOR_SETUP_SECRET
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: "1"
+              memory: 512Mi
+          volumeMounts:
+            - name: data
+              mountPath: /app/data
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: cuseum-data

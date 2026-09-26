@@ -7,8 +7,8 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { useTranslations } from "@/lib/i18n/useLocale";
 
 /**
- * The smallest navigation that still works: a wordmark, two sections, the way
- * to add something, and a quiet language sign. No sidebar, no dashboard chrome.
+ * The smallest navigation that still works: a wordmark, two sections, and a
+ * quiet language sign. The public galleries are read-only; Curators use /admin.
  */
 export function SiteHeader() {
   const t = useTranslations();
@@ -49,14 +49,6 @@ export function SiteHeader() {
                 </span>
               </NavLink>
             ))}
-            <NavLink href="/new" current={pathname === "/new"}>
-              <span className="label-caps text-[0.6rem] tracking-[0.12em] md:text-[0.68rem] md:tracking-[0.18em]">
-                <span className="mr-1" aria-hidden>
-                  +
-                </span>
-                {t.nav.addExhibit}
-              </span>
-            </NavLink>
           </nav>
 
           <span aria-hidden className="hidden h-3 w-px self-center bg-line sm:block" />

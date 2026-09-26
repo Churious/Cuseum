@@ -6,8 +6,8 @@ Cuseum is not a bookmark manager. You do not save links here — you put things
 you found on the internet on display. Every screen is built so that the exhibit
 itself is the loudest thing on the page, and the interface stays quiet.
 
-- No account, no server database, no analytics.
-- Everything lives in your own browser (IndexedDB).
+- Visitor exhibits live in your own browser (IndexedDB).
+- Curator authentication is configurable and self-hosted (see [Authentication](#authentication)).
 - One small server route exists, and only to read Open Graph metadata from a
   page you explicitly ask about.
 
@@ -241,10 +241,69 @@ Rules that are followed everywhere:
 
 ---
 
+## Authentication
+
+Cuseum supports configurable Curator authentication. Copy `.env.example` to
+`.env`, set the secrets, then run `npm run auth:migrate` before starting the
+app.
+
+Authentication methods do not create separate museums or automatically create
+separate Curators. Every method converges on one Better Auth user, and
+authorization always checks `isCurator(session.user)` server-side.
+
+### Passkey
+
+Recommended.
+
+```env
+AUTH_METHODS=passkey
+```
+
+Use WebAuthn-compatible authenticators such as:
+
+* 1Password
+* Windows Hello
+* Apple Passwords
+* Google Password Manager
+* hardware security keys
+
+### GitHub
+
+```env
+AUTH_METHODS=github
+```
+
+Requires:
+
+```env
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=
+```
+
+### Email & Password
+
+```env
+AUTH_METHODS=password
+```
+
+No public sign-up is provided. Email and password credentials are created only
+during first-time Curator setup.
+
+### Multiple methods
+
+```env
+AUTH_METHODS=passkey,github,password
+```
+
+First-time setup is at `/admin/setup` and requires `CURATOR_SETUP_SECRET`.
+Open `/api/admin/setup/authorize?secret=YOUR_SECRET` once to begin.
+
+---
+
 ## What v0.1 deliberately leaves out
 
-No authentication. No social features. No AI recommendations. No comments, no
-followers, no cloud sync, no analytics, no import/export, and no statistics
+No social features. No AI recommendations. No comments, no followers, no cloud
+sync for visitor exhibits, no analytics, no import/export, and no statistics
 dashboard. Cuseum v0.1 is meant to be small and finished.
 
 

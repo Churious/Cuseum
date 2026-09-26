@@ -1,24 +1,15 @@
 import { emptyRoomCounts } from "./rooms";
-import {
-  createExhibit,
-  insertSampleExhibits,
-  listExhibits,
-  removeExhibit,
-  removeSampleExhibits,
-  updateExhibit,
-} from "./repository";
-import { SAMPLE_EXHIBITS } from "./sampleExhibits";
 import type { Exhibit, ExhibitDraft, RoomId } from "./types";
 
 export interface MuseumState {
   exhibits: Exhibit[];
-  /** False until IndexedDB has answered once. */
+  /** False until the collection has loaded once. */
   ready: boolean;
   /** A code, not a sentence: the interface translates it. */
   error: MuseumErrorCode | null;
 }
 
-/** Set when the browser refuses to open IndexedDB (e.g. strict private mode). */
+/** Set when the museum collection cannot be loaded from the server. */
 export type MuseumErrorCode = "storage-unavailable";
 
 export interface MuseumStats {
@@ -64,28 +55,28 @@ export function getServerMuseumState(): MuseumState {
 
 let initPromise: Promise<void> | null = null;
 
-/** Opens the database and loads the collection. Safe to call repeatedly. */
+/** Loads the collection from the server. Safe to call repeatedly. */
 export function initMuseum(): Promise<void> {
   if (typeof window === "undefined") {
     return Promise.resolve();
   }
   if (!initPromise) {
-    initPromise = refresh().catch(reportStorageFailure);
+    initPromise = refresh().catch(reportLoadFailure);
   }
   return initPromise;
 }
 
 async function refresh(): Promise<void> {
-  const exhibits = await listExhibits();
+  const response = await fetch("/api/exhibits", { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Failed to load exhibits (${response.status}).`);
+  }
+  const exhibits = (await response.json()) as Exhibit[];
   setState({ exhibits, ready: true, error: null });
 }
 
-/**
- * Records that the browser would not give us a museum. The detail goes to the
- * console for developers; the visitor sees a translated sentence instead.
- */
-function reportStorageFailure(error: unknown): void {
-  console.error("[Cuseum] local storage is unavailable:", error);
+function reportLoadFailure(error: unknown): void {
+  console.error("[Cuseum] the museum collection could not be loaded:", error);
   setState({ ...state, ready: true, error: "storage-unavailable" });
 }
 
@@ -94,15 +85,52 @@ async function mutate(operation: () => Promise<void>): Promise<void> {
     await operation();
     await refresh();
   } catch (error) {
-    reportStorageFailure(error);
+    reportLoadFailure(error);
     throw error;
+  }
+}
+
+async function postJson<T>(url: string, body?: unknown): Promise<T> {
+  const response = await fetch(url, {
+    method: body === undefined ? "GET" : "POST",
+    headers: body === undefined ? undefined : { "Content-Type": "application/json" },
+    body: body === undefined ? undefined : JSON.stringify(body),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed (${response.status}).`);
+  }
+
+  return (await response.json()) as T;
+}
+
+async function patchJson<T>(url: string, body: unknown): Promise<T> {
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+
+  if (!response.ok) {
+    throw new Error(`Request failed (${response.status}).`);
+  }
+
+  return (await response.json()) as T;
+}
+
+async function deleteRequest(url: string): Promise<void> {
+  const response = await fetch(url, { method: "DELETE", cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Request failed (${response.status}).`);
   }
 }
 
 export async function addExhibit(draft: ExhibitDraft): Promise<Exhibit> {
   let created: Exhibit | null = null;
   await mutate(async () => {
-    created = await createExhibit(draft);
+    created = await postJson<Exhibit>("/api/exhibits", draft);
   });
   if (!created) {
     throw new Error("The exhibit could not be placed in the museum.");
@@ -114,17 +142,22 @@ export async function editExhibit(
   id: string,
   patch: Partial<ExhibitDraft>,
 ): Promise<void> {
-  await mutate(() => updateExhibit(id, patch));
+  await mutate(async () => {
+    await patchJson<Exhibit>(`/api/exhibits/${id}`, patch);
+  });
 }
 
 export async function withdrawExhibit(id: string): Promise<void> {
-  await mutate(() => removeExhibit(id));
+  await mutate(async () => {
+    await deleteRequest(`/api/exhibits/${id}`);
+  });
 }
 
 export async function addSampleExhibits(): Promise<number> {
   let inserted = 0;
   await mutate(async () => {
-    inserted = await insertSampleExhibits(SAMPLE_EXHIBITS);
+    const result = await postJson<{ inserted: number }>("/api/exhibits/samples");
+    inserted = result.inserted;
   });
   return inserted;
 }
@@ -132,7 +165,15 @@ export async function addSampleExhibits(): Promise<number> {
 export async function withdrawSampleExhibits(): Promise<number> {
   let removed = 0;
   await mutate(async () => {
-    removed = await removeSampleExhibits();
+    const response = await fetch("/api/exhibits/samples", {
+      method: "DELETE",
+      cache: "no-store",
+    });
+    if (!response.ok) {
+      throw new Error(`Request failed (${response.status}).`);
+    }
+    const result = (await response.json()) as { removed: number };
+    removed = result.removed;
   });
   return removed;
 }

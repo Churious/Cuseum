@@ -8,11 +8,6 @@ import {
   Noto_Sans_KR,
   Noto_Serif_KR,
 } from "next/font/google";
-import { MuseumRuntime } from "@/components/MuseumRuntime";
-import { PageEnter } from "@/components/site/PageEnter";
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SkipLink } from "@/components/site/SkipLink";
 import { getServerTranslations } from "@/lib/i18n/server";
 import { LocaleProvider } from "@/lib/i18n/useLocale";
 import "./globals.css";
@@ -84,15 +79,7 @@ export default async function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-paper antialiased" suppressHydrationWarning>
-        <LocaleProvider initialLocale={locale}>
-          <MuseumRuntime />
-          <SkipLink />
-          <SiteHeader />
-          <main id="main" className="mx-auto w-full max-w-[1180px] px-6 md:px-10">
-            <PageEnter>{children}</PageEnter>
-          </main>
-          <SiteFooter />
-        </LocaleProvider>
+        <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
       </body>
     </html>
   );

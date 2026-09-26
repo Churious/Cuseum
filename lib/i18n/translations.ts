@@ -20,7 +20,7 @@ const en = {
   },
   meta: {
     description:
-      "Cuseum is a quiet place to put the things you find on the internet on display. Everything is kept in your own browser.",
+      "Cuseum is a quiet place to put the things you find on the internet on display.",
   },
   nav: {
     label: "Museum sections",
@@ -47,7 +47,7 @@ const en = {
     emptyRoom: "Empty",
   },
   lobby: {
-    privacy: "Everything here belongs to you, and stays in this browser",
+    privacy: "The galleries are open for viewing. Only the Curator can add or change exhibits.",
     roomsHeading: "The rooms",
     roomsNote: "Five rooms, in the order of the building",
     takeMe: "Take me somewhere",
@@ -56,7 +56,7 @@ const en = {
       "One exhibit, chosen at random, from anywhere in the building.",
     firstExhibit: "Place the first exhibit",
     emptyMuseum:
-      "The museum is empty. Every collection starts with one thing you could not stop thinking about.",
+      "The museum is empty. The Curator has not placed anything on display yet.",
     collectionLink: "The collection list",
     collectedSince: (month: string) => `Collected since ${month}`,
   },
@@ -211,7 +211,7 @@ const en = {
     eyebrow: "Collection",
     title: "Everything, in one list",
     intro:
-      "For finding, correcting, and withdrawing exhibits. To look at them properly, walk the rooms instead.",
+      "Browse everything in one list. This gallery is read-only — only the Curator can add or change exhibits.",
     searchLabel: "Search",
     searchAria: "Search the collection",
     searchPlaceholder: "Title, note, description, or address…",
@@ -254,7 +254,7 @@ const en = {
     error: "The sample exhibits could not be changed.",
   },
   footer: {
-    storage: "Kept in this browser only",
+    storage: "Read-only gallery",
     collection: "Collection",
   },
   notFound: {
@@ -265,9 +265,84 @@ const en = {
     everything: "See everything",
   },
   errors: {
-    storage: "Cuseum cannot reach this browser's local storage right now.",
-    storageHint:
-      "Private browsing windows sometimes refuse to keep a museum; opening this page in an ordinary window usually solves it.",
+    storage: "Cuseum cannot load the collection right now.",
+    storageHint: "Try refreshing the page. If the problem continues, the server may be unavailable.",
+  },
+  auth: {
+    curator: {
+      title: "Curator",
+      signedIn: "You are signed in as the Cuseum Curator.",
+      body: "Manage the collection, add exhibits, and preview the public galleries.",
+    },
+    admin: {
+      statsLabel: "On display",
+      toolsLabel: "Curator tools",
+      manageCollection: "Manage the collection",
+      addExhibit: "Add an exhibit",
+      viewMuseum: "View the public museum",
+      collectionTitle: "Collection",
+      collectionIntro: "Add, edit, and withdraw exhibits. Visitors can only browse.",
+      workspaceIntro:
+        "Add exhibits, edit labels, and withdraw pieces. The public galleries stay read-only.",
+      backToDashboard: "Back to Curator",
+      backToCollection: "Back to collection",
+      nav: {
+        dashboard: "Collection",
+        addExhibit: "+ Exhibit",
+      },
+    },
+    login: {
+      passkey: {
+        label: "Continue with passkey",
+        pending: "Waiting for your passkey…",
+      },
+      github: {
+        label: "Continue with GitHub",
+        pending: "Redirecting to GitHub…",
+      },
+      password: {
+        email: "Email",
+        password: "Password",
+        submit: "Sign in",
+        pending: "Signing in…",
+      },
+      or: "or",
+    },
+    setup: {
+      title: "Curator setup",
+      subtitle: "Choose how the first Curator will sign in.",
+      chooseMethod: "Choose the first sign-in method",
+      changeMethod: "Choose a different method",
+      recommended: "Recommended",
+      secretRequired: "Curator setup requires an installation secret.",
+      secretHint:
+        "Open /api/admin/setup/authorize?secret=YOUR_CURATOR_SETUP_SECRET once to begin setup.",
+      completing: "Completing Curator setup…",
+      passkey: {
+        label: "Register passkey",
+        pending: "Waiting for your passkey…",
+      },
+      github: {
+        label: "Continue with GitHub",
+        pending: "Redirecting to GitHub…",
+      },
+      password: {
+        email: "Email",
+        password: "Password",
+        submit: "Create Curator account",
+        pending: "Creating account…",
+      },
+      methods: {
+        passkey: "Passkey",
+        github: "GitHub",
+        password: "Email & Password",
+      },
+      hints: {
+        passkey: "Use 1Password, Windows Hello, or another WebAuthn authenticator.",
+        github: "Sign in with your GitHub account.",
+        password: "Create an email and password for this Curator only.",
+      },
+    },
   },
 };
 
@@ -286,7 +361,7 @@ const ko: Translation = {
   },
   meta: {
     description:
-      "Cuseum은 인터넷에서 발견한 것들을 조용히 전시해 두는 개인 박물관입니다. 모든 기록은 이 브라우저에만 남습니다.",
+      "Cuseum은 인터넷에서 발견한 것들을 조용히 전시해 두는 개인 박물관입니다.",
   },
   nav: {
     label: "박물관 안내",
@@ -312,7 +387,7 @@ const ko: Translation = {
     emptyRoom: "비어 있음",
   },
   lobby: {
-    privacy: "이곳의 모든 것은 당신의 것이며, 이 브라우저에만 남습니다",
+    privacy: "갤러리는 관람만 가능합니다. 전시 추가·수정은 Curator만 할 수 있습니다.",
     roomsHeading: "전시실",
     roomsNote: "건물 순서대로 놓인 다섯 개의 전시실",
     takeMe: "어딘가로 데려가 줘",
@@ -320,7 +395,7 @@ const ko: Translation = {
     takeMeCaption: "건물 안 어디에서든 무작위로 고른 전시 한 점.",
     firstExhibit: "첫 전시 배치하기",
     emptyMuseum:
-      "박물관이 비어 있습니다. 모든 컬렉션은 자꾸 떠오르는 한 가지에서 시작됩니다.",
+      "박물관이 비어 있습니다. Curator가 아직 전시를 배치하지 않았습니다.",
     collectionLink: "컬렉션 목록",
     collectedSince: (month: string) => `${month}부터 수집`,
   },
@@ -472,7 +547,7 @@ const ko: Translation = {
     eyebrow: "컬렉션",
     title: "모든 전시를 한 목록에",
     intro:
-      "전시를 찾고, 고치고, 철회하는 곳입니다. 작품을 제대로 보려면 전시실을 걸어보세요.",
+      "모든 전시를 한 목록에서 볼 수 있습니다. 이 갤러리는 관람 전용이며, 전시 추가·수정은 Curator만 할 수 있습니다.",
     searchLabel: "검색",
     searchAria: "전시 검색",
     searchPlaceholder: "제목, 메모, 설명, 주소",
@@ -513,7 +588,7 @@ const ko: Translation = {
     error: "샘플 전시를 변경하지 못했습니다.",
   },
   footer: {
-    storage: "이 브라우저에만 보관됩니다",
+    storage: "관람 전용 갤러리",
     collection: "컬렉션",
   },
   notFound: {
@@ -524,9 +599,84 @@ const ko: Translation = {
     everything: "전체 보기",
   },
   errors: {
-    storage: "지금은 이 브라우저의 저장 공간에 접근할 수 없습니다.",
-    storageHint:
-      "시크릿 창에서는 박물관을 보관하지 못할 때가 있습니다. 일반 창에서 열면 보통 해결됩니다.",
+    storage: "지금은 컬렉션을 불러올 수 없습니다.",
+    storageHint: "페이지를 새로고침해 보세요. 계속되면 서버를 확인해야 합니다.",
+  },
+  auth: {
+    curator: {
+      title: "Curator",
+      signedIn: "Cuseum Curator로 로그인되어 있습니다.",
+      body: "컬렉션을 관리하고, 전시를 추가하며, 공개 갤러리를 미리볼 수 있습니다.",
+    },
+    admin: {
+      statsLabel: "전시 중",
+      toolsLabel: "Curator 도구",
+      manageCollection: "컬렉션 관리",
+      addExhibit: "전시 추가",
+      viewMuseum: "공개 박물관 보기",
+      collectionTitle: "컬렉션",
+      collectionIntro: "전시를 추가·수정·철회합니다. 관람객은 열람만 가능합니다.",
+      workspaceIntro:
+        "전시를 추가·수정·철회합니다. 공개 갤러리는 관람 전용으로 유지됩니다.",
+      backToDashboard: "Curator로 돌아가기",
+      backToCollection: "컬렉션으로 돌아가기",
+      nav: {
+        dashboard: "컬렉션",
+        addExhibit: "+ 전시",
+      },
+    },
+    login: {
+      passkey: {
+        label: "패스키로 로그인",
+        pending: "패스키를 기다리는 중…",
+      },
+      github: {
+        label: "GitHub로 로그인",
+        pending: "GitHub로 이동하는 중…",
+      },
+      password: {
+        email: "이메일",
+        password: "비밀번호",
+        submit: "로그인",
+        pending: "로그인하는 중…",
+      },
+      or: "또는",
+    },
+    setup: {
+      title: "Curator setup",
+      subtitle: "첫 Curator가 로그인할 방식을 고릅니다.",
+      chooseMethod: "첫 로그인 방식을 고르세요",
+      changeMethod: "다른 방식 선택",
+      recommended: "권장",
+      secretRequired: "Curator setup에는 설치 secret이 필요합니다.",
+      secretHint:
+        "setup을 시작하려면 /api/admin/setup/authorize?secret=YOUR_CURATOR_SETUP_SECRET 을 한 번 열어주세요.",
+      completing: "Curator setup을 마치는 중…",
+      passkey: {
+        label: "패스키 등록",
+        pending: "패스키를 기다리는 중…",
+      },
+      github: {
+        label: "GitHub로 로그인",
+        pending: "GitHub로 이동하는 중…",
+      },
+      password: {
+        email: "이메일",
+        password: "비밀번호",
+        submit: "Curator account 만들기",
+        pending: "계정을 만드는 중…",
+      },
+      methods: {
+        passkey: "Passkey",
+        github: "GitHub",
+        password: "Email & Password",
+      },
+      hints: {
+        passkey: "1Password, Windows Hello 등 WebAuthn 호환 인증기를 사용합니다.",
+        github: "GitHub 계정으로 로그인합니다.",
+        password: "이 Curator 전용 이메일과 비밀번호를 만듭니다.",
+      },
+    },
   },
 };
 

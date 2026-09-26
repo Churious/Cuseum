@@ -54,9 +54,6 @@ export function RoomWall({ room }: { room: RoomId }) {
 
         <div className="label-caps mt-10 flex flex-wrap items-baseline gap-x-7 gap-y-3 text-[0.65rem] tracking-[0.18em]">
           <span>{ready ? countLabel(exhibits.length, locale) : "…"}</span>
-          <Link href={`/new?room=${room}`} className="link-quiet">
-            {t.rooms.addToRoom}
-          </Link>
           <Link href={`/collection?room=${room}`} className="link-quiet">
             {t.rooms.openInCollection}
           </Link>
@@ -66,15 +63,7 @@ export function RoomWall({ room }: { room: RoomId }) {
       {!ready ? (
         <LoadingRoom label={t.loading.museum} />
       ) : exhibits.length === 0 ? (
-        <EmptyState
-          title={t.rooms.emptyLines[room]}
-          line={t.rooms.emptyLine}
-          action={
-            <Link href={`/new?room=${room}`} className="btn-ink">
-              {t.rooms.emptyAction}
-            </Link>
-          }
-        />
+        <EmptyState title={t.rooms.emptyLines[room]} line={t.rooms.emptyLine} />
       ) : (
         <div className={`mt-16 md:mt-24 ${WALL_LAYOUT[room]}`}>
           {exhibits.map((exhibit, index) => (

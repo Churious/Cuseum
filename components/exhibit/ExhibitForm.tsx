@@ -66,10 +66,15 @@ export function ExhibitForm({
   mode,
   exhibit,
   initialRoom,
+  paths,
 }: {
   mode: "create" | "edit";
   exhibit?: Exhibit;
   initialRoom?: RoomId;
+  paths?: {
+    cancel: string;
+    afterSave: (exhibit: Exhibit) => string;
+  };
 }) {
   const router = useRouter();
   const { t } = useLocale();
@@ -215,10 +220,10 @@ export function ExhibitForm({
     try {
       if (mode === "edit" && exhibit) {
         await editExhibit(exhibit.id, draft);
-        router.push(`/exhibit/${exhibit.id}`);
+        router.push(paths?.afterSave(exhibit) ?? `/exhibit/${exhibit.id}`);
       } else {
         const created = await addExhibit(draft);
-        router.push(`/exhibit/${created.id}`);
+        router.push(paths?.afterSave(created) ?? `/exhibit/${created.id}`);
       }
     } catch {
       setFormError(t.newExhibit.error);
@@ -395,7 +400,10 @@ export function ExhibitForm({
               : t.newExhibit.submit}
         </button>
         <Link
-          href={mode === "edit" && exhibit ? `/exhibit/${exhibit.id}` : "/"}
+          href={
+            paths?.cancel ??
+            (mode === "edit" && exhibit ? `/exhibit/${exhibit.id}` : "/")
+          }
           className="label-caps link-quiet"
         >
           {t.newExhibit.cancel}

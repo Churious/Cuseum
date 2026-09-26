@@ -9,9 +9,21 @@ import { useExhibit } from "@/hooks/useMuseum";
 import { formatExhibitDate } from "@/lib/format";
 import { useLocale } from "@/lib/i18n/useLocale";
 import { withdrawExhibit } from "@/lib/museumStore";
+import type { Exhibit } from "@/lib/types";
 
 /** Editing an exhibit, including the quiet way to take it down again. */
-export function ExhibitEditor({ id }: { id: string }) {
+export function ExhibitEditor({
+  id,
+  paths,
+}: {
+  id: string;
+  paths?: {
+    collection: string;
+    afterWithdraw: (room: string) => string;
+    afterSave: (exhibit: Exhibit) => string;
+    cancel: string;
+  };
+}) {
   const { exhibit, ready } = useExhibit(id);
   const [confirming, setConfirming] = useState(false);
   const [removing, setRemoving] = useState(false);
@@ -30,7 +42,7 @@ export function ExhibitEditor({ id }: { id: string }) {
           {t.editExhibit.missingTitle}
         </h1>
         <div className="mt-12">
-          <Link href="/collection" className="btn-line">
+          <Link href={paths?.collection ?? "/collection"} className="btn-line">
             {t.editExhibit.seeCollection}
           </Link>
         </div>
@@ -42,7 +54,7 @@ export function ExhibitEditor({ id }: { id: string }) {
     setRemoving(true);
     try {
       await withdrawExhibit(id);
-      router.push(`/rooms/${room}`);
+      router.push(paths?.afterWithdraw(room) ?? `/rooms/${room}`);
     } catch {
       setRemoving(false);
     }
@@ -50,7 +62,18 @@ export function ExhibitEditor({ id }: { id: string }) {
 
   return (
     <div>
-      <ExhibitForm mode="edit" exhibit={exhibit} />
+      <ExhibitForm
+        mode="edit"
+        exhibit={exhibit}
+        paths={
+          paths
+            ? {
+                cancel: paths.cancel,
+                afterSave: paths.afterSave,
+              }
+            : undefined
+        }
+      />
 
       <section
         aria-labelledby="withdraw-heading"

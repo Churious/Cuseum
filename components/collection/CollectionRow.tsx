@@ -11,7 +11,15 @@ import type { Exhibit } from "@/lib/types";
  * One line in the collection list. Administrative, but still printed in the
  * museum's own type: no coloured badges, no icons.
  */
-export function CollectionRow({ exhibit }: { exhibit: Exhibit }) {
+export function CollectionRow({
+  exhibit,
+  manageable = false,
+  editHref,
+}: {
+  exhibit: Exhibit;
+  manageable?: boolean;
+  editHref?: string;
+}) {
   const [confirming, setConfirming] = useState(false);
   const [removing, setRemoving] = useState(false);
   const { t, locale } = useLocale();
@@ -67,38 +75,40 @@ export function CollectionRow({ exhibit }: { exhibit: Exhibit }) {
           </p>
         </div>
 
-        <div className="label-caps flex items-baseline gap-x-7 text-[0.6rem] tracking-[0.16em]">
-          <Link href={`/exhibit/${exhibit.id}/edit`} className="link-quiet">
-            {t.collection.edit}
-          </Link>
-          {confirming ? (
-            <>
+        {manageable ? (
+          <div className="label-caps flex items-baseline gap-x-7 text-[0.6rem] tracking-[0.16em]">
+            <Link href={editHref ?? `/exhibit/${exhibit.id}/edit`} className="link-quiet">
+              {t.collection.edit}
+            </Link>
+            {confirming ? (
+              <>
+                <button
+                  type="button"
+                  onClick={() => void remove()}
+                  disabled={removing}
+                  className="border-b border-clay pb-0.5 text-clay"
+                >
+                  {removing ? t.collection.removing : t.collection.removeConfirm}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setConfirming(false)}
+                  className="link-quiet"
+                >
+                  {t.collection.keep}
+                </button>
+              </>
+            ) : (
               <button
                 type="button"
-                onClick={() => void remove()}
-                disabled={removing}
-                className="border-b border-clay pb-0.5 text-clay"
-              >
-                {removing ? t.collection.removing : t.collection.removeConfirm}
-              </button>
-              <button
-                type="button"
-                onClick={() => setConfirming(false)}
+                onClick={() => setConfirming(true)}
                 className="link-quiet"
               >
-                {t.collection.keep}
+                {t.collection.remove}
               </button>
-            </>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setConfirming(true)}
-              className="link-quiet"
-            >
-              {t.collection.remove}
-            </button>
-          )}
-        </div>
+            )}
+          </div>
+        ) : null}
       </div>
     </li>
   );
