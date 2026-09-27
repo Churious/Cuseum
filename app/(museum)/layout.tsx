@@ -1,8 +1,7 @@
 import type { ReactNode } from "react";
+import { GalleryRouteChrome } from "@/components/gallery/GalleryRouteChrome";
 import { MuseumRuntime } from "@/components/MuseumRuntime";
 import { PageEnter } from "@/components/site/PageEnter";
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { SiteHeader } from "@/components/site/SiteHeader";
 import { SkipLink } from "@/components/site/SkipLink";
 
 export default function MuseumLayout({ children }: { children: ReactNode }) {
@@ -10,11 +9,9 @@ export default function MuseumLayout({ children }: { children: ReactNode }) {
     <>
       <MuseumRuntime />
       <SkipLink />
-      <SiteHeader />
-      <main id="main" className="mx-auto w-full max-w-[1180px] px-6 md:px-10">
+      <GalleryRouteChrome>
         <PageEnter>{children}</PageEnter>
-      </main>
-      <SiteFooter />
+      </GalleryRouteChrome>
     </>
   );
 }

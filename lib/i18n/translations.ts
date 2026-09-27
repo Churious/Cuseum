@@ -60,6 +60,21 @@ const en = {
     collectionLink: "The collection list",
     collectedSince: (month: string) => `Collected since ${month}`,
   },
+  gallery: {
+    lobbyName: "Main hall",
+    lobbyEyebrow: "Welcome",
+    preparing: "Exhibition in preparation",
+    preparingShort: "Awaiting installation",
+    preparingRoom: "This gallery is preparing its next exhibition.",
+    opening: "Opening the gallery doors…",
+    position: (current: number, total: number) =>
+      `${String(current).padStart(2, "0")} / ${String(total).padStart(2, "0")}`,
+    prevRoom: "Previous gallery",
+    nextRoom: "Next gallery",
+    navigationLabel: "Gallery navigation",
+    errorTitle: "The gallery could not be opened",
+    errorLine: "Something went wrong while opening this room.",
+  },
   rooms: {
     marker: (numeral: string) => `Room ${numeral}`,
     names: {
@@ -398,6 +413,21 @@ const ko: Translation = {
       "박물관이 비어 있습니다. Curator가 아직 전시를 배치하지 않았습니다.",
     collectionLink: "컬렉션 목록",
     collectedSince: (month: string) => `${month}부터 수집`,
+  },
+  gallery: {
+    lobbyName: "중앙 홀",
+    lobbyEyebrow: "환영합니다",
+    preparing: "전시 준비 중",
+    preparingShort: "설치 예정",
+    preparingRoom: "이 전시실은 다음 전시를 준비 중입니다.",
+    opening: "전시실 문을 여는 중…",
+    position: (current: number, total: number) =>
+      `${String(current).padStart(2, "0")} / ${String(total).padStart(2, "0")}`,
+    prevRoom: "이전 전시실",
+    nextRoom: "다음 전시실",
+    navigationLabel: "전시실 이동",
+    errorTitle: "전시실을 열 수 없습니다",
+    errorLine: "이 전시실을 여는 중 문제가 발생했습니다.",
   },
   rooms: {
     marker: (numeral: string) => `전시실 ${numeral}`,

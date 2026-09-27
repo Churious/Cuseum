@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" fill="none" aria-hidden="true">
+  <rect width="960" height="520" fill="#f4f0e8"/>
+  <path d="M30 420 L480 460 L930 420 L480 380 Z" fill="#ebe4d8" stroke="#dad3c6" stroke-width="1"/>
+  <!-- picture wall -->
+  <path d="M70 60 L480 20 L890 60 L480 100 Z" fill="#fbf9f5" stroke="#dad3c6" stroke-width="1"/>
+  <!-- frame grid hints -->
+  <rect x="110" y="130" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="270" y="120" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="430" y="130" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="590" y="120" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="750" y="130" width="100" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="140" y="260" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="320" y="250" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="500" y="260" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <rect x="680" y="250" width="120" height="90" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+</svg>

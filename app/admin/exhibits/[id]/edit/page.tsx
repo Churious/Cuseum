@@ -27,8 +27,7 @@ export default async function AdminEditExhibitPage({
         paths={{
           collection: "/admin",
           cancel: `/exhibit/${id}`,
-          afterSave: (exhibit) => `/exhibit/${exhibit.id}`,
-          afterWithdraw: () => "/admin",
+          afterWithdraw: "/admin",
         }}
       />
     </CuratorPage>

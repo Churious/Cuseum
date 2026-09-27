@@ -18,10 +18,17 @@ docker save cuseum:latest | sudo k3s ctr images import -
 echo "==> Applying manifests"
 kubectl apply -f deploy/k8s/namespace.yaml
 kubectl apply -f deploy/k8s/pvc.yaml
-kubectl apply -f deploy/k8s/secret.yaml
+if grep -q "REPLACE_ME" deploy/k8s/secret.yaml 2>/dev/null; then
+  echo "==> Skipping secret.yaml (placeholders — keeping existing cluster secret)"
+else
+  kubectl apply -f deploy/k8s/secret.yaml
+fi
 kubectl apply -f deploy/k8s/deployment.yaml
 kubectl apply -f deploy/k8s/service.yaml
 kubectl apply -f deploy/k8s/ingress.yaml
+
+echo "==> Restarting deployment (image tag is always :latest)"
+kubectl rollout restart deployment/cuseum -n cuseum
 
 echo "==> Waiting for rollout"
 kubectl rollout status deployment/cuseum -n cuseum --timeout=180s

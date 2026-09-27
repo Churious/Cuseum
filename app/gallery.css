@@ -1,0 +1,872 @@
+/*
+ * Cuseum gallery — full-bleed 2.5D exhibition rooms.
+ * Colorful, spatial, museum-first. No central white card.
+ */
+
+.gallery-main {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  overflow-x: hidden;
+  background: var(--rs-void, #1a1713);
+}
+
+.gallery-view {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  background: var(--rs-void);
+  color: var(--rs-text);
+}
+
+/* —— Plaque header —— */
+.gallery-plaque {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid color-mix(in srgb, var(--rs-accent) 35%, transparent);
+  background: var(--rs-header-bg);
+  color: var(--rs-header-ink);
+  backdrop-filter: blur(6px);
+}
+
+.gallery-plaque__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  gap: 0.75rem 1rem;
+  padding: 0.65rem 1rem 0.75rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .gallery-plaque__inner {
+    padding: 0.75rem 1.5rem 0.85rem;
+  }
+}
+
+.gallery-plaque__brand {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--rs-header-ink);
+  text-decoration: none;
+}
+
+.gallery-plaque__center {
+  text-align: center;
+}
+
+.gallery-plaque__room {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rs-nav-ink);
+}
+
+.gallery-plaque__position {
+  margin-top: 0.15rem;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--rs-header-ink);
+}
+
+.gallery-plaque__actions {
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.gallery-plaque__link {
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rs-nav-ink);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.gallery-plaque__link:hover {
+  border-color: currentColor;
+}
+
+.gallery-plaque .label-caps {
+  color: var(--rs-nav-ink);
+}
+
+.gallery-plaque button {
+  color: var(--rs-nav-ink);
+}
+
+.gallery-plaque button[aria-pressed="true"] {
+  color: var(--rs-header-ink);
+  border-color: var(--rs-accent);
+}
+
+.gallery-plaque button:hover:not([aria-pressed="true"]) {
+  color: var(--rs-header-ink);
+  border-color: color-mix(in srgb, var(--rs-nav-ink) 60%, transparent);
+}
+
+.gallery-plaque .text-line-strong {
+  color: var(--rs-nav-ink);
+}
+
+/* —— Carousel / camera pan —— */
+.gallery-stage {
+  position: relative;
+  display: grid;
+  flex: 1;
+  grid-template-columns: auto 1fr auto;
+  align-items: stretch;
+  min-height: min(78vh, 720px);
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.gallery-stage__viewport {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-carousel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 620ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+
+.gallery-carousel__pane {
+  flex: 0 0 100%;
+  min-width: 100%;
+}
+
+.gallery-nav {
+  align-self: center;
+  z-index: 20;
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, var(--rs-nav-ink) 40%, transparent);
+  background: color-mix(in srgb, var(--rs-header-bg) 80%, transparent);
+  color: var(--rs-nav-ink);
+  font-size: 1.35rem;
+  line-height: 1;
+  transition: border-color 220ms ease, color 220ms ease, background 220ms ease;
+}
+
+.gallery-nav:hover {
+  border-color: var(--rs-accent);
+  color: var(--rs-header-ink);
+  background: color-mix(in srgb, var(--rs-accent) 12%, var(--rs-header-bg));
+}
+
+.gallery-nav-group--right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0 0.35rem;
+}
+
+.gallery-nav__position {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  color: var(--rs-nav-ink);
+  writing-mode: horizontal-tb;
+}
+
+@media (max-width: 640px) {
+  .gallery-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+  }
+
+  .gallery-nav--prev {
+    position: absolute;
+    left: 0.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: color-mix(in srgb, var(--rs-void) 55%, transparent);
+  }
+
+  .gallery-nav-group--right {
+    position: absolute;
+    right: 0.35rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .gallery-nav__position {
+    display: none;
+  }
+}
+
+/* —— Room shell (spatial scene) —— */
+.room-shell {
+  position: relative;
+  height: 100%;
+  min-height: min(76vh, 700px);
+  perspective: 900px;
+  perspective-origin: 50% 42%;
+}
+
+.room-shell__void {
+  position: absolute;
+  inset: 0;
+  background: var(--rs-void);
+}
+
+.room-shell__scene {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateX(7deg);
+  transform-origin: 50% 88%;
+}
+
+.room-shell__ceiling {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 0;
+  height: 14%;
+  background: linear-gradient(180deg, var(--rs-ceiling) 0%, var(--rs-wall) 100%);
+  transform: rotateX(52deg) translateZ(-30px);
+  transform-origin: top center;
+  border-bottom: 3px solid var(--rs-molding);
+}
+
+.room-shell__ceiling-molding {
+  position: absolute;
+  bottom: 0;
+  left: 8%;
+  right: 8%;
+  height: 4px;
+  background: var(--rs-molding);
+  opacity: 0.85;
+}
+
+.room-shell__wall--left,
+.room-shell__wall--right {
+  position: absolute;
+  top: 8%;
+  bottom: 18%;
+  width: 16%;
+  background: linear-gradient(90deg, var(--rs-wall-deep), var(--rs-wall));
+}
+
+.room-shell__wall--left {
+  left: 0;
+  transform: rotateY(32deg);
+  transform-origin: left center;
+}
+
+.room-shell__wall--right {
+  right: 0;
+  transform: rotateY(-32deg);
+  transform-origin: right center;
+  background: linear-gradient(270deg, var(--rs-wall-deep), var(--rs-wall));
+}
+
+.room-shell__passage {
+  position: absolute;
+  top: 28%;
+  bottom: 22%;
+  width: 5%;
+  opacity: 0.35;
+  background: linear-gradient(180deg, transparent, var(--rs-wall-accent), transparent);
+}
+
+.room-shell__passage--left {
+  left: 14%;
+}
+
+.room-shell__passage--right {
+  right: 14%;
+}
+
+.room-shell__wall--back {
+  position: relative;
+  margin: 4% 12% 0;
+  min-height: 62%;
+  padding: 1.25rem 1rem 2rem;
+  background:
+    linear-gradient(175deg, color-mix(in srgb, var(--rs-wall-accent) 18%, var(--rs-wall)) 0%, var(--rs-wall) 45%, var(--rs-wall-deep) 100%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, var(--rs-molding) 80%, white),
+    0 28px 60px -20px rgba(0, 0, 0, 0.55);
+  transform: translateZ(20px);
+}
+
+.room-shell__ambient {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--rs-spotlight), transparent 65%);
+}
+
+.room-shell__wash {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 40% 30% at 80% 90%, var(--rs-spotlight-warm), transparent 70%);
+  opacity: 0.8;
+}
+
+.room-shell__baseboard {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px;
+  background: linear-gradient(180deg, var(--rs-molding), var(--rs-baseboard));
+}
+
+.room-shell__floor {
+  position: absolute;
+  left: 2%;
+  right: 2%;
+  bottom: 0;
+  height: 20%;
+  transform: rotateX(82deg);
+  transform-origin: bottom center;
+  background: linear-gradient(180deg, var(--rs-floor-light), var(--rs-floor));
+  border-top: 2px solid color-mix(in srgb, var(--rs-molding) 50%, white);
+}
+
+.room-shell__floor-sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.06) 50%, transparent 60%);
+}
+
+/* Floor textures */
+.room-shell--floor-wood .room-shell__floor {
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent,
+      transparent 28px,
+      rgba(0, 0, 0, 0.08) 28px,
+      rgba(0, 0, 0, 0.08) 29px
+    ),
+    linear-gradient(180deg, var(--rs-floor-light), var(--rs-floor));
+}
+
+.room-shell--floor-stone .room-shell__floor {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0 2px,
+      transparent 2px 14px
+    ),
+    linear-gradient(180deg, var(--rs-floor-light), var(--rs-floor));
+}
+
+.room-shell--floor-tile .room-shell__floor {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0 1px,
+      transparent 1px 24px
+    ),
+    repeating-linear-gradient(
+      rgba(0, 0, 0, 0.06) 0 1px,
+      transparent 1px 24px
+    ),
+    linear-gradient(180deg, var(--rs-floor-light), var(--rs-floor));
+}
+
+.room-shell--floor-concrete .room-shell__floor {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.04), transparent 40%),
+    linear-gradient(180deg, var(--rs-floor-light), var(--rs-floor));
+}
+
+.room-shell--floor-carpet .room-shell__floor {
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.04) 0 3px,
+      transparent 3px 6px
+    ),
+    linear-gradient(180deg, var(--rs-floor-light), var(--rs-floor));
+}
+
+.room-shell__header {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 1rem;
+}
+
+.room-shell__content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Room header plaque on wall */
+.room-header__eyebrow {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rs-nav-ink);
+}
+
+.room-header__title {
+  margin-top: 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+  line-height: 1;
+  color: var(--rs-text);
+}
+
+.room-header__tagline {
+  margin-top: 0.5rem;
+  max-width: 38ch;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--rs-text-soft);
+}
+
+.room-header__meta {
+  margin-top: 0.65rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rs-nav-ink);
+}
+
+.room-header__link {
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.room-header__link:hover {
+  border-color: currentColor;
+}
+
+/* Exhibit hang grid */
+.room-hang {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.1rem 0.9rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.room-hang__cell {
+  min-width: 0;
+}
+
+.room-preparing-note {
+  margin-top: 0.85rem;
+  max-width: 32ch;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--rs-text-soft);
+  opacity: 0.75;
+}
+
+/* Lobby doors on back wall */
+.room-lobby-doors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+}
+
+@media (min-width: 768px) {
+  .room-lobby-doors {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.room-lobby-door {
+  display: block;
+  padding: 0.65rem 0.45rem;
+  text-align: center;
+  border: 1px solid color-mix(in srgb, var(--rs-accent) 45%, var(--rs-molding));
+  background: color-mix(in srgb, var(--rs-frame) 55%, transparent);
+  color: var(--rs-text);
+  transition: transform 260ms ease, border-color 260ms ease;
+}
+
+.room-lobby-door:hover {
+  transform: translateY(-2px);
+  border-color: var(--rs-accent);
+}
+
+.room-lobby-door__numeral {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.18em;
+  color: var(--rs-accent);
+}
+
+.room-lobby-door__name {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: var(--font-display);
+  font-size: 1rem;
+}
+
+.room-lobby-door__tagline {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--rs-text-soft);
+  line-height: 1.35;
+}
+
+.room-lobby-note {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rs-text-soft);
+}
+
+.room-lobby-walk {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.gallery-walk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.gallery-walk-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid color-mix(in srgb, var(--rs-accent) 55%, var(--rs-molding));
+  background: color-mix(in srgb, var(--rs-accent) 18%, var(--rs-frame));
+  color: var(--rs-text);
+  transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+}
+
+.gallery-walk-btn:hover:not(:disabled) {
+  border-color: var(--rs-accent);
+  background: color-mix(in srgb, var(--rs-accent) 28%, var(--rs-frame));
+  transform: translateY(-1px);
+}
+
+.gallery-walk-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.gallery-walk-note {
+  max-width: 38ch;
+  text-align: center;
+  font-size: 0.78rem;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--rs-text-soft);
+}
+
+/* Exhibit + spotlight */
+.room-exhibit {
+  position: relative;
+  margin: 0;
+}
+
+.room-exhibit__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.room-spotlight {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: -8%;
+  width: 130%;
+  height: 80%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 50% 70% at 50% 0%, var(--rs-spotlight), transparent 72%);
+  z-index: 0;
+}
+
+/* Frames */
+.room-frame__outer {
+  padding: 5px;
+  background: linear-gradient(145deg, var(--rs-molding), var(--rs-frame));
+  box-shadow:
+    0 14px 28px -12px rgba(0, 0, 0, 0.45),
+    0 2px 0 color-mix(in srgb, white 20%, var(--rs-frame));
+}
+
+.room-frame__mat {
+  padding: 4px;
+  background: var(--rs-frame-inner);
+  border: 1px solid color-mix(in srgb, var(--rs-molding) 70%, black);
+}
+
+.room-frame--poster .room-frame__poster-body {
+  padding: 3px;
+  background: var(--rs-frame);
+  border: 1px solid var(--rs-molding);
+  box-shadow: 0 10px 24px -14px rgba(0, 0, 0, 0.5);
+}
+
+.room-frame__shelf {
+  margin-top: 4px;
+  height: 3px;
+  background: linear-gradient(180deg, var(--rs-molding), var(--rs-baseboard));
+  box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.35);
+}
+
+.room-frame--screen .room-frame__bezel {
+  padding: 4px;
+  background: linear-gradient(180deg, #3a4048, #1a1e24);
+  border: 1px solid #5a6470;
+  box-shadow:
+    0 0 20px color-mix(in srgb, var(--rs-accent) 25%, transparent),
+    0 12px 28px -10px rgba(0, 0, 0, 0.55);
+}
+
+.room-frame__screen-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.35rem;
+  background: #12161c;
+  border-bottom: 1px solid #2a3038;
+}
+
+.room-frame__led {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--rs-accent);
+  box-shadow: 0 0 6px var(--rs-accent);
+}
+
+.room-frame__url {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.5rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #8a98a8;
+}
+
+.room-frame--document {
+  padding: 6px;
+  background: var(--rs-frame);
+  border: 1px solid var(--rs-molding);
+  box-shadow: 2px 4px 12px -4px rgba(0, 0, 0, 0.4);
+}
+
+.room-exhibit__link:hover .room-frame__outer,
+.room-exhibit__link:focus-visible .room-frame__outer,
+.room-exhibit__link:hover .room-frame--poster .room-frame__poster-body,
+.room-exhibit__link:focus-visible .room-frame--poster .room-frame__poster-body {
+  transform: translateY(-2px);
+  transition: transform 320ms ease;
+}
+
+/* Pedestal */
+.room-pedestal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.room-pedestal__top {
+  display: flex;
+  min-height: 100px;
+  width: 100%;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0.35rem;
+  background: linear-gradient(180deg, var(--rs-frame), var(--rs-frame-inner));
+  border: 1px solid var(--rs-molding);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.room-pedestal--glass .room-pedestal__top {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, white 12%, transparent),
+    color-mix(in srgb, var(--rs-accent) 8%, transparent)
+  );
+  border: 1px solid color-mix(in srgb, white 25%, var(--rs-molding));
+  backdrop-filter: blur(2px);
+}
+
+.room-pedestal__stem {
+  width: 55%;
+  height: 8px;
+  margin-top: 2px;
+  background: var(--rs-molding);
+}
+
+.room-pedestal__shadow {
+  margin-top: 4px;
+  width: 70%;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.28);
+  filter: blur(5px);
+}
+
+/* Caption plates */
+.room-caption-plate {
+  margin-top: 0.45rem;
+  padding: 0.35rem 0.45rem;
+  background: var(--rs-caption-plate);
+  border: 1px solid color-mix(in srgb, var(--rs-molding) 60%, transparent);
+  box-shadow: 0 2px 6px -2px rgba(0, 0, 0, 0.25);
+}
+
+.room-caption-plate__title {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  line-height: 1.25;
+  color: var(--rs-caption-ink);
+}
+
+.room-caption-plate__meta {
+  margin-top: 0.15rem;
+  font-size: 0.52rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rs-caption);
+}
+
+.room-caption-plate__detail {
+  display: none;
+}
+
+.room-exhibit__link:hover .room-caption-plate__detail,
+.room-exhibit__link:focus-visible .room-caption-plate__detail {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  color: var(--rs-caption);
+}
+
+.room-caption-plate--empty {
+  opacity: 0.65;
+  padding: 0.25rem 0.35rem;
+}
+
+/* Empty slots */
+.room-empty__surface {
+  display: flex;
+  aspect-ratio: 4 / 3;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed color-mix(in srgb, var(--rs-molding) 70%, var(--rs-accent));
+  background: color-mix(in srgb, var(--rs-frame) 35%, transparent);
+}
+
+.room-empty--poster .room-empty__surface {
+  aspect-ratio: 1;
+}
+
+.room-empty--screen .room-empty__surface {
+  aspect-ratio: 16 / 10;
+}
+
+.room-empty--document .room-empty__surface {
+  aspect-ratio: 3 / 4;
+}
+
+.room-empty--object .room-empty__object {
+  width: 48px;
+  height: 48px;
+  border: 1px dashed color-mix(in srgb, var(--rs-molding) 60%, transparent);
+  border-radius: 2px;
+}
+
+.room-empty__wire {
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--rs-molding);
+  opacity: 0.5;
+}
+
+/* Error in scene */
+.museum-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  padding: 2rem;
+  text-align: center;
+  color: var(--rs-text);
+}
+
+.museum-error__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+}
+
+.museum-error__line {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--rs-text-soft);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 767px) {
+  .room-shell__scene {
+    transform: rotateX(4deg);
+  }
+
+  .room-shell__wall--left,
+  .room-shell__wall--right {
+    width: 12%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-carousel {
+    transition: none !important;
+  }
+
+  .room-shell__scene {
+    transform: none;
+  }
+}

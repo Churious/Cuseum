@@ -1,7 +1,7 @@
 "use client";
 
+import { startAuthentication } from "@simplewebauthn/browser";
 import { useState } from "react";
-import { useAuthClient } from "./AuthClientProvider";
 
 export function PasskeyButton({
   label,
@@ -12,7 +12,6 @@ export function PasskeyButton({
   pendingLabel: string;
   onSuccess?: () => Promise<void> | void;
 }) {
-  const authClient = useAuthClient();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -21,11 +20,32 @@ export function PasskeyButton({
     setError(null);
 
     try {
-      const result = await authClient.signIn.passkey();
-      if (result.error) {
-        setError(result.error.message ?? "Passkey sign-in failed.");
+      const optionsResponse = await fetch("/api/admin/passkey/login-options", {
+        credentials: "include",
+      });
+
+      if (!optionsResponse.ok) {
+        const payload = (await optionsResponse.json().catch(() => null)) as { error?: string } | null;
+        setError(payload?.error ?? "Passkey sign-in failed.");
         return;
       }
+
+      const options = await optionsResponse.json();
+      const authResponse = await startAuthentication({ optionsJSON: options });
+
+      const verifyResponse = await fetch("/api/auth/passkey/verify-authentication", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ response: authResponse }),
+      });
+
+      if (!verifyResponse.ok) {
+        const payload = (await verifyResponse.json().catch(() => null)) as { message?: string } | null;
+        setError(payload?.message ?? "Passkey sign-in failed.");
+        return;
+      }
+
       await onSuccess?.();
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Passkey sign-in failed.");

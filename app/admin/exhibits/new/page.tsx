@@ -28,10 +28,7 @@ export default async function AdminNewExhibitPage({ searchParams }: AdminNewExhi
       <ExhibitForm
         mode="create"
         initialRoom={initialRoom}
-        paths={{
-          cancel: "/admin",
-          afterSave: (exhibit) => `/exhibit/${exhibit.id}`,
-        }}
+        paths={{ cancel: "/admin" }}
       />
     </CuratorPage>
   );

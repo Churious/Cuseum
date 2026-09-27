@@ -7,7 +7,7 @@ RUN apt-get update \
 WORKDIR /app
 
 FROM base AS deps
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 RUN npm ci
 
 FROM base AS builder
@@ -22,7 +22,7 @@ ENV NODE_ENV=production \
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json .npmrc ./
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public

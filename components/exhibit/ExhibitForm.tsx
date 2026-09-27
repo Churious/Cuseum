@@ -73,7 +73,8 @@ export function ExhibitForm({
   initialRoom?: RoomId;
   paths?: {
     cancel: string;
-    afterSave: (exhibit: Exhibit) => string;
+    /** Post-save destination. `{id}` is replaced with the exhibit id. */
+    afterSave?: string;
   };
 }) {
   const router = useRouter();
@@ -220,10 +221,14 @@ export function ExhibitForm({
     try {
       if (mode === "edit" && exhibit) {
         await editExhibit(exhibit.id, draft);
-        router.push(paths?.afterSave(exhibit) ?? `/exhibit/${exhibit.id}`);
+        router.push(
+          (paths?.afterSave ?? "/exhibit/{id}").replace("{id}", exhibit.id),
+        );
       } else {
         const created = await addExhibit(draft);
-        router.push(paths?.afterSave(created) ?? `/exhibit/${created.id}`);
+        router.push(
+          (paths?.afterSave ?? "/exhibit/{id}").replace("{id}", created.id),
+        );
       }
     } catch {
       setFormError(t.newExhibit.error);

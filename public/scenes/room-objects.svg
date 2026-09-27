@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" fill="none" aria-hidden="true">
+  <rect width="960" height="520" fill="#f4f0e8"/>
+  <path d="M30 430 L480 470 L930 430 L480 390 Z" fill="#ebe4d8" stroke="#dad3c6" stroke-width="1"/>
+  <path d="M60 90 L480 50 L900 90 L480 130 Z" fill="#fbf9f5" stroke="#dad3c6" stroke-width="1"/>
+  <!-- plinths -->
+  <path d="M130 300 h80 v40 h-80 Z" stroke="#b8afa0" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="170" cy="350" rx="50" ry="8" fill="#191713" opacity="0.08"/>
+  <path d="M310 280 h80 v40 h-80 Z" stroke="#b8afa0" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="350" cy="330" rx="50" ry="8" fill="#191713" opacity="0.08"/>
+  <path d="M490 300 h80 v40 h-80 Z" stroke="#b8afa0" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="530" cy="350" rx="50" ry="8" fill="#191713" opacity="0.08"/>
+  <path d="M670 280 h80 v40 h-80 Z" stroke="#b8afa0" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="710" cy="330" rx="50" ry="8" fill="#191713" opacity="0.08"/>
+  <path d="M200 380 h70 v36 h-70 Z" stroke="#dad3c6" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="235" cy="424" rx="42" ry="7" fill="#191713" opacity="0.06"/>
+  <path d="M420 390 h70 v36 h-70 Z" stroke="#dad3c6" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="455" cy="434" rx="42" ry="7" fill="#191713" opacity="0.06"/>
+  <path d="M640 380 h70 v36 h-70 Z" stroke="#dad3c6" stroke-width="1" fill="#fbf9f5"/>
+  <ellipse cx="675" cy="424" rx="42" ry="7" fill="#191713" opacity="0.06"/>
+</svg>

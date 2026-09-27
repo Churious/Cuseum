@@ -30,6 +30,10 @@ export function createPasskeyPlugin() {
     rpID: authConfig.passkey.rpId,
     rpName: "Cuseum",
     origin: authConfig.passkey.origin,
+    authenticatorSelection: {
+      residentKey: "required",
+      userVerification: "preferred",
+    },
     registration: {
       requireSession: false,
       resolveUser: async ({ ctx }) => {

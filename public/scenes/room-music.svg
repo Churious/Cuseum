@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" fill="none" aria-hidden="true">
+  <rect width="960" height="520" fill="#f4f0e8"/>
+  <!-- floor -->
+  <path d="M30 400 L480 440 L930 400 L480 360 Z" fill="#ebe4d8" stroke="#dad3c6" stroke-width="1"/>
+  <!-- back wall -->
+  <path d="M60 80 L480 40 L900 80 L480 120 Z" fill="#fbf9f5" stroke="#dad3c6" stroke-width="1"/>
+  <!-- low shelves -->
+  <path d="M80 220 L880 220" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M80 220 L80 240 L880 240 L880 220" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M80 320 L880 320" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M80 320 L80 340 L880 340 L880 320" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M80 400 L880 400" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M80 400 L80 418 L880 418 L880 400" stroke="#b8afa0" stroke-width="1"/>
+  <!-- shelf supports -->
+  <path d="M120 240 v80 M280 240 v80 M440 240 v80 M600 240 v80 M760 240 v80" stroke="#dad3c6" stroke-width="0.75"/>
+</svg>

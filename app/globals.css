@@ -1,5 +1,6 @@
-/* Cuseum — a quiet, modern museum. Warm paper, near-black ink, hairlines. */
+﻿/* Cuseum — a quiet, modern museum. Warm paper, near-black ink, hairlines. */
 @import "tailwindcss";
+@import "./gallery.css";
 
 /*
  * Cuseum design tokens.
@@ -214,6 +215,108 @@
     animation-iteration-count: 1 !important;
   }
 }
+
+/*
+ * 2.5D museum scenes — desktop only (see md:motion-safe: split in components).
+ * Isometric backdrops with absolutely positioned Link hit areas. No WebGL.
+ */
+.scene-25d {
+  --scene-parallax: 0px;
+}
+
+.scene-25d__stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 960 / 420;
+  max-height: min(72vh, 640px);
+  transform: translateY(var(--scene-parallax));
+  transition: transform 120ms linear;
+}
+
+.scene-25d__stage--lobby {
+  aspect-ratio: 960 / 420;
+}
+
+.scene-25d__stage--music,
+.scene-25d__stage--web,
+.scene-25d__stage--images,
+.scene-25d__stage--objects,
+.scene-25d__stage--archive {
+  aspect-ratio: 960 / 520;
+}
+
+.scene-25d__backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.scene-25d__slots {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.scene-slot {
+  position: absolute;
+  margin: 0;
+  transform-origin: center bottom;
+}
+
+.scene-slot h3 {
+  font-size: 1rem;
+  line-height: 1.25;
+}
+
+.scene-slot .label-caps {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+}
+
+.scene-25d__entrances {
+  position: absolute;
+  inset: 0;
+}
+
+.scene-entrance {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  transition: border-color 260ms ease, background-color 260ms ease;
+}
+
+.scene-entrance:focus-visible {
+  border-color: var(--color-ink);
+  background-color: rgba(251, 249, 245, 0.55);
+}
+
+.scene-entrance:hover {
+  background-color: rgba(251, 249, 245, 0.45);
+}
+
+.scene-entrance__plate {
+  width: 100%;
+  padding: 0.65rem 0.5rem;
+  background-color: rgba(244, 240, 232, 0.82);
+  border: 1px solid var(--color-line);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-25d__stage {
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 
 /*
  * Korean typography.

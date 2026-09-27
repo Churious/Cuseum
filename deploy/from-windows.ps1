@@ -6,9 +6,9 @@
 #   .\deploy\from-windows.ps1 -Host 192.168.1.143 -User YOUR_USER -Port 2222
 
 param(
-  [string]$Host = "192.168.1.143",
-  [string]$User = "ubuntu",
-  [int]$Port = 2222,
+  [string]$RemoteHost = "home-server",
+  [string]$User = "hwan",
+  [int]$Port = 22,
   [string]$RemotePath = "~/cuseum"
 )
 
@@ -23,8 +23,8 @@ if (Test-Path $Archive) { Remove-Item $Archive -Force }
 
 tar --exclude=node_modules --exclude=.next --exclude=.git --exclude=data -czf $Archive .
 
-Write-Host "==> Uploading to ${User}@${Host}:${RemotePath}"
-scp -P $Port $Archive "${User}@${Host}:${RemotePath}/cuseum-deploy.tar.gz"
+Write-Host "==> Uploading to ${User}@${RemoteHost}:${RemotePath}"
+scp -P $Port $Archive "${User}@${RemoteHost}:${RemotePath}/cuseum-deploy.tar.gz"
 
 Write-Host "==> Building and rolling out on homelab"
 $RemoteCmd = @"
@@ -35,7 +35,7 @@ rm cuseum-deploy.tar.gz
 bash deploy/homelab-deploy.sh
 "@
 
-ssh -p $Port "${User}@${Host}" $RemoteCmd
+ssh -p $Port "${User}@${RemoteHost}" $RemoteCmd
 
 Write-Host ""
 Write-Host "Done. Cuseum should be live at https://cuseum.swanno3o.com"

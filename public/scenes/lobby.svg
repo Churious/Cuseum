@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" fill="none" aria-hidden="true">
+  <rect width="960" height="420" fill="#f4f0e8"/>
+  <!-- floor -->
+  <path d="M40 320 L480 380 L920 320 L480 260 Z" fill="#ebe4d8" stroke="#dad3c6" stroke-width="1"/>
+  <path d="M40 320 L480 260 L920 320" stroke="#b8afa0" stroke-width="1"/>
+  <!-- back wall -->
+  <path d="M80 120 L480 80 L880 120 L480 160 Z" fill="#fbf9f5" stroke="#dad3c6" stroke-width="1"/>
+  <!-- archways -->
+  <path d="M120 160 v80" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M200 150 v100" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M280 140 v120" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M360 150 v100" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M440 160 v80" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M520 160 v80" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M600 150 v100" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M680 140 v120" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M760 150 v100" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M840 160 v80" stroke="#b8afa0" stroke-width="1"/>
+  <!-- ceiling lines -->
+  <path d="M80 120 L480 80 L880 120" stroke="#867e70" stroke-width="0.75" opacity="0.5"/>
+  <path d="M120 160 L480 120 L840 160" stroke="#867e70" stroke-width="0.75" opacity="0.35"/>
+</svg>

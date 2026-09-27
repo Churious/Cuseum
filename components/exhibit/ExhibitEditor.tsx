@@ -9,8 +9,6 @@ import { useExhibit } from "@/hooks/useMuseum";
 import { formatExhibitDate } from "@/lib/format";
 import { useLocale } from "@/lib/i18n/useLocale";
 import { withdrawExhibit } from "@/lib/museumStore";
-import type { Exhibit } from "@/lib/types";
-
 /** Editing an exhibit, including the quiet way to take it down again. */
 export function ExhibitEditor({
   id,
@@ -19,9 +17,11 @@ export function ExhibitEditor({
   id: string;
   paths?: {
     collection: string;
-    afterWithdraw: (room: string) => string;
-    afterSave: (exhibit: Exhibit) => string;
     cancel: string;
+    /** Post-save destination. `{id}` is replaced with the exhibit id. */
+    afterSave?: string;
+    /** Post-withdraw destination. Defaults to `/rooms/{room}`. */
+    afterWithdraw?: string;
   };
 }) {
   const { exhibit, ready } = useExhibit(id);
@@ -54,7 +54,9 @@ export function ExhibitEditor({
     setRemoving(true);
     try {
       await withdrawExhibit(id);
-      router.push(paths?.afterWithdraw(room) ?? `/rooms/${room}`);
+      router.push(
+        paths?.afterWithdraw?.replace("{room}", room) ?? `/rooms/${room}`,
+      );
     } catch {
       setRemoving(false);
     }
@@ -67,10 +69,7 @@ export function ExhibitEditor({
         exhibit={exhibit}
         paths={
           paths
-            ? {
-                cancel: paths.cancel,
-                afterSave: paths.afterSave,
-              }
+            ? { cancel: paths.cancel, afterSave: paths.afterSave }
             : undefined
         }
       />

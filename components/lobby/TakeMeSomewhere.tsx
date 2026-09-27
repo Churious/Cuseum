@@ -28,9 +28,9 @@ export function TakeMeSomewhere() {
 
   if (!ready) {
     return (
-      <div className="h-[52px]" aria-hidden>
-        <span className="label-caps">{t.loading.doors}</span>
-      </div>
+      <button type="button" disabled className="gallery-walk-btn" aria-hidden>
+        {t.lobby.takeMe}
+      </button>
     );
   }
 
@@ -46,19 +46,17 @@ export function TakeMeSomewhere() {
 
   if (exhibits.length === 0) {
     return (
-      <div className="max-w-[46ch]">
-        <p className="text-sm leading-relaxed italic text-ink-soft">{t.lobby.emptyMuseum}</p>
-      </div>
+      <p className="gallery-walk-note">{t.lobby.emptyMuseum}</p>
     );
   }
 
   return (
-    <div className="max-w-[46ch]">
-      <button type="button" onClick={walk} disabled={walking} className="btn-ink">
+    <div className="gallery-walk">
+      <button type="button" onClick={walk} disabled={walking} className="gallery-walk-btn">
         {walking ? t.lobby.walking : t.lobby.takeMe}
         <span aria-hidden>→</span>
       </button>
-      <p className="mt-6 text-sm italic text-ink-soft">{t.lobby.takeMeCaption}</p>
+      <p className="gallery-walk-note">{t.lobby.takeMeCaption}</p>
     </div>
   );
 }

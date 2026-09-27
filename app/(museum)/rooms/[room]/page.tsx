@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { RoomWall } from "@/components/room/RoomWall";
+import { MuseumGalleryView } from "@/components/gallery/MuseumGalleryView";
 import { getServerTranslations } from "@/lib/i18n/server";
 import { isRoomId } from "@/lib/rooms";
 
@@ -25,5 +25,5 @@ export default async function RoomPage({ params }: RoomPageProps) {
     notFound();
   }
 
-  return <RoomWall room={room} />;
+  return <MuseumGalleryView initialStop={room} />;
 }

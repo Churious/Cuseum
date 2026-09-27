@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 520" fill="none" aria-hidden="true">
+  <rect width="960" height="520" fill="#f4f0e8"/>
+  <path d="M30 420 L480 460 L930 420 L480 380 Z" fill="#ebe4d8" stroke="#dad3c6" stroke-width="1"/>
+  <path d="M60 80 L480 40 L900 80 L480 120 Z" fill="#fbf9f5" stroke="#dad3c6" stroke-width="1"/>
+  <!-- desk surface -->
+  <path d="M100 260 L860 240 L820 320 L140 340 Z" fill="#fbf9f5" stroke="#b8afa0" stroke-width="1"/>
+  <path d="M140 340 L820 320" stroke="#867e70" stroke-width="0.75" opacity="0.45"/>
+  <!-- desk legs -->
+  <path d="M180 340 v80 M780 320 v100" stroke="#dad3c6" stroke-width="1"/>
+  <!-- paper stack hint -->
+  <path d="M220 250 l60 -12 l4 48 l-60 12 Z" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <path d="M400 245 l58 -10 l4 46 l-58 10 Z" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+  <path d="M580 238 l60 -8 l4 44 l-60 8 Z" stroke="#dad3c6" stroke-width="1" fill="#f4f0e8"/>
+</svg>
